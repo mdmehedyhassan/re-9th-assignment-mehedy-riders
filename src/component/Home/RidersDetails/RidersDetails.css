@@ -1,0 +1,10 @@
+.ridersStyle{
+    background-color: white;
+    border-radius: 10px;
+    color: red;
+    padding: 10px;
+    box-shadow: 4px 4px 10px gray, -4px -4px 10px gray;
+}
+.ridersStyle:hover{
+    box-shadow: 4px 4px 10px black, -4px -4px 10px black;
+}

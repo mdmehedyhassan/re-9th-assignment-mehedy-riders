@@ -1,0 +1,11 @@
+.rider-submit-style{
+    background-color: rgb(232, 232, 232);
+    padding: 10px;
+    border-radius: 10px;
+}
+.form-result-mini-div{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+}
