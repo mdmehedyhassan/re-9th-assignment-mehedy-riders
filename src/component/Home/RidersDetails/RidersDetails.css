@@ -1,7 +1,7 @@
 .ridersStyle{
     background-color: white;
     border-radius: 10px;
-    color: red;
+    color: rgb(95, 95, 95);
     padding: 10px;
     box-shadow: 4px 4px 10px gray, -4px -4px 10px gray;
 }

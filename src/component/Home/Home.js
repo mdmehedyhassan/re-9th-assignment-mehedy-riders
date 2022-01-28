@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../App';
+import React, { useEffect, useState } from 'react';
+import { fakeData } from '../../FakeData/FakeData';
 import RidersDetails from './RidersDetails/RidersDetails';
 
 const Home = () => {
-    const [riders] = useContext(UserContext);
+    const [riders, setRiders] = useState([]);
+    useEffect(() => {
+      setRiders(fakeData)
+    }, []);
     return (
         <div className="container">
             <div className="row">

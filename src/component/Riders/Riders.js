@@ -1,18 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Riders.css'
 import { useForm } from "react-hook-form";
 import mapImage from '../../images/Map.png'
 import { useParams } from 'react-router-dom';
-import { UserContext } from '../../App';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import { fakeData } from '../../FakeData/FakeData';
 
 
 const Riders = () => {
     const {riderName} = useParams();
-    const [riders] = useContext(UserContext);
+    const [riders, setRiders] = useState([]);
+    useEffect(() => {
+      setRiders(fakeData)
+    }, []);
     const getRider = riders.find(rider => rider.name === riderName);
-
+    
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [getInput, setGetInput] = useState({})
 
@@ -39,8 +42,8 @@ const Riders = () => {
     }
     return (
         <div className="container">
-            <div className="row mt-5">
-                <div id="input-form-id" className="col-md-4">
+            <div className="row mt-5 mb-5">
+                <div id="input-form-id" className="col-md-4 mt-3 mb-3">
                     <div className="rider-submit-style text-success">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label htmlFor="pickFrom">Pick From :</label>
@@ -52,24 +55,22 @@ const Riders = () => {
                             {errors.pickTo && <span className="text-danger">This field is required!!!</span>}
                             <br />
                             <label htmlFor="time">Time :</label>
-                            <input id="pickTime" type="time" className="form-control" {...register("time", { required: true })} />
-                            {errors.time && <span className="text-danger">This field is required!!!</span>}
+                            <input id="pickTime" type="time" className="form-control" {...register("time")} />
                             <br />
                             <input className="form-control bg-primary text-light mt-3" type="submit" value="Search" />
                         </form>
                     </div>
                 </div>
-                <div id="result-form-id" className="col-md-4 d-none">
+                <div id="result-form-id" className="col-md-4 d-none mt-3 mb-3">
                     <div className="rider-submit-style">
                         <h4><small className="text-secondary">Pick From:</small> {getInput.pickFrom}</h4>
                         <h4><small className="text-secondary">Pick To:</small> {getInput.pickTo}</h4>
-                        <h4><small className="text-secondary">Time:</small> {getInput.time}</h4>
+                        <h4><small className="text-secondary">Time:</small> {getInput.time || 'does not set'}</h4>
                         <div className="d-flex justify-content-between align-items-center form-result-mini-div">
-                            <img className="w-25" src={getRider.imgUrl} alt="" />
+                            <img className="w-25" src={getRider?.imgUrl} alt="" />
                             <h4>{getRider?.name}</h4>
                             <h4><FontAwesomeIcon icon={faTicketAlt}/> {getRider?.ticket}</h4>
                             <h4>${getRider?.price}</h4>
-                            
                         </div>
                         <input onClick={reSearchHandler} className="form-control bg-primary text-light mt-3" type="submit" value="Search again" />
                     </div>

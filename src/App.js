@@ -10,14 +10,13 @@ import {
 import Home from './component/Home/Home';
 import Riders from './component/Riders/Riders';
 import Login from './component/Login/Login';
+import PrivateRoute from './component/PrivateRoute/PrivateRoute';
+import NotMatch from './component/NotMatch/NotMatch';
 
 export const UserContext = createContext();
 
 function App() {
-  const [riders, setRiders] = useState([]);
-  useEffect(() => {
-    setRiders(fakeData)
-  }, []);
+  const [riders, setRiders] = useState({});
   return (
     <UserContext.Provider value={[riders, setRiders]}>
       <Router>
@@ -29,11 +28,14 @@ function App() {
           <Route path="/home">
             <Home />
           </Route>
-          <Route path="/rider/:riderName">
+          <PrivateRoute path="/rider/:riderName">
             <Riders />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="*">
+            <NotMatch />
           </Route>
         </Switch>
       </Router>
