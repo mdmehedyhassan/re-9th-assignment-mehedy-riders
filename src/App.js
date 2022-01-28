@@ -1,7 +1,6 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import './App.css';
 import Header from './component/Header/Header';
-import { fakeData } from './FakeData/FakeData';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +11,10 @@ import Riders from './component/Riders/Riders';
 import Login from './component/Login/Login';
 import PrivateRoute from './component/PrivateRoute/PrivateRoute';
 import NotMatch from './component/NotMatch/NotMatch';
+import Profile from './component/Profile/Profile';
+import Destination from './component/Destination/Destination';
+import Blog from './component/Blog/Blog';
+import Contact from './component/Contact/Contact';
 
 export const UserContext = createContext();
 
@@ -31,9 +34,22 @@ function App() {
           <PrivateRoute path="/rider/:riderName">
             <Riders />
           </PrivateRoute>
+          <PrivateRoute path="/profile">
+            <Profile />
+          </PrivateRoute>
+          <PrivateRoute path="/destination">
+            <Destination />
+          </PrivateRoute>
+          <Route path="/blog">
+            <Blog />
+          </Route>
+          <Route path="/contact">
+            <Contact />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>
+          
           <Route path="*">
             <NotMatch />
           </Route>

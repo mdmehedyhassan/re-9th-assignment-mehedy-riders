@@ -44,7 +44,7 @@ const Riders = () => {
         <div className="container">
             <div className="row mt-5 mb-5">
                 <div id="input-form-id" className="col-md-4 mt-3 mb-3">
-                    <div className="rider-submit-style text-success">
+                    <div className="rider-submit-style text-light">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label htmlFor="pickFrom">Pick From :</label>
                             <input id="pickFrom" placeholder="Pick From..." className="form-control" {...register("pickFrom", { required: true })} />
@@ -62,7 +62,7 @@ const Riders = () => {
                     </div>
                 </div>
                 <div id="result-form-id" className="col-md-4 d-none mt-3 mb-3">
-                    <div className="rider-submit-style">
+                    <div className="rider-submit-style text-light">
                         <h4><small className="text-secondary">Pick From:</small> {getInput.pickFrom}</h4>
                         <h4><small className="text-secondary">Pick To:</small> {getInput.pickTo}</h4>
                         <h4><small className="text-secondary">Time:</small> {getInput.time || 'does not set'}</h4>

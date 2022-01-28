@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './Login.css'
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase.config';
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { UserContext } from '../../App';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGooglePlus } from '@fortawesome/free-brands-svg-icons';
@@ -28,31 +28,48 @@ const Login = () => {
             if (data.password === data.confirmPassword) {
                 createUserWithEmailAndPassword(auth, data.email, data.password)
                     .then((res) => {
+                        updateProfileHandler(data.name)
                         const getData = {
-                            email: res.user.email
+                            email: data.email,
+                            name:  data.name
                         }
                         setRiders(getData);
+                        
                         history.replace(from);
+                        console.log(res, getData);
                     })
                     .catch((err) => {
-
                     });
             }
+            else{
+                alert('Password does not Match')
+            }
         }
-        if(isHaveAccount && data.email && data.password ){
+        if (isHaveAccount && data.email && data.password) {
             signInWithEmailAndPassword(auth, data.email, data.password)
-            .then((res) => {
-                const getData = {
-                    email: res.user.email
-                }
-                setRiders(getData);
-                history.replace(from);
-            })
-            .catch((err) => {
+                .then((res) => {
+                    const getData = {
+                        email: res.user.email,
+                        name: res.user.displayName
+                    }
+                    setRiders(getData);
+                    history.replace(from);
+                    console.log(res)
+                })
+                .catch((err) => {
 
-            });
+                });
         }
     };
+
+    const updateProfileHandler = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name,
+        }).then(() => {
+
+        }).catch((err) => {
+        });
+    }
 
     const googleSingIn = () => {
         const provider = new GoogleAuthProvider();
